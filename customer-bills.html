@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bill History</title>
+  <style>
+    table {
+      width: 80%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    h2 {
+      text-align: center;
+    }
+
+    a.download-link {
+      text-decoration: none;
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Your Bill History</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Bill Date</th>
+      <th>File Name</th>
+      <th>Download</th>
+    </tr>
+  </thead>
+  <tbody id="billTableBody">
+    <!-- Rows will be filled by JS -->
+  </tbody>
+</table>
+
+<script src="customer-bills.js"></script>
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #e0ecff, #f3f9ff);
+      color: #2c3e50;
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: linear-gradient(to right, #5b7cfa, #405ce3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      color: white;
+      font-weight: 600;
+      font-size: 20px;
+    }
+
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: linear-gradient(to right, #5b7cfa, #405ce3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 1000;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+      color: white;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .bottom-bar button {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      background-color: #ff5e57;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 94, 87, 0.3);
+    }
+
+    .bottom-bar button:hover {
+      background-color: #e04a47;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      color: #1a1a2e;
+      margin-top: 80px;
+      margin-bottom: 10px;
+    }
+
+    .section {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+      padding: 30px;
+      margin: 30px auto;
+      max-width: 650px;
+    }
+
+    h3 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      color: #34495e;
+      margin-bottom: 25px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+      transition: border-color 0.3s ease;
+      background-color: #fefefe;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #5b7cfa;
+      outline: none;
+      background-color: #fff;
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: #5b7cfa;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 600;
+      box-shadow: 0 6px 18px rgba(91, 124, 250, 0.25);
+    }
+
+    button:hover {
+      background-color: #405ce3;
+      transform: translateY(-2px);
+    }
+
+    .result-message {
+      margin-top: 20px;
+      padding: 12px 16px;
+      border-left: 6px solid #28a745;
+      background-color: #eafaf1;
+      border-radius: 8px;
+      color: #2e7d32;
+      font-weight: 500;
+    }
+
+    .result-message.error {
+      border-left-color: #e74c3c;
+      background-color: #fdecea;
+      color: #c0392b;
+    }
+
+    input::placeholder {
+      color: #aaa;
+    }
+
+    @media (max-width: 640px) {
+      .section {
+        padding: 20px;
+      }
+
+      button {
+        width: 100%;
+      }
+
+      input, select {
+        font-size: 14px;
+      }
+
+      .bottom-bar {
+        flex-direction: column;
+        height: auto;
+        gap: 5px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">Admin Dashboard</div>
+
+  <h2>Welcome, Admin</h2>
+
+  <!-- Register User Section -->
+  <div class="section">
+    <h3>Register New User</h3>
+    <form id="registerForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+
+      <label for="mobile">Mobile:</label>
+      <input type="text" id="mobile" required>
+
+      <label for="role">Role:</label>
+      <select id="role" required>
+        <option value="">--Select Role--</option>
+        <option value="CUSTOMER">Customer</option>
+        <option value="DAIRY_MANAGER">Manager</option>
+      </select>
+
+      <label for="codeId">Code ID:</label>
+      <input type="text" id="codeId" required>
+
+      <label for="milkType">Milk Type:</label>
+      <select id="milkType" required>
+        <option value="">--Select Milk Type--</option>
+        <option value="COW">Cow</option>
+        <option value="BUFFALO">Buffalo</option>
+      </select>
+
+      <button type="submit">Register</button>
+    </form>
+    <div id="registerResult" class="result-message" style="display:none;"></div>
+  </div>
+
+  <!-- Generate All Bills -->
+  <div class="section">
+    <h3>Generate 10-Day Bills for All Customers</h3>
+    <label for="startDate">Start Date:</label>
+    <input type="text" id="startDate" placeholder="Select start date" required />
+    <label for="endDate">End Date:</label>
+    <input type="text" id="endDate" placeholder="Select end date" required />
+    <button onclick="generateAllBills()">Generate Bills</button>
+    <div id="billStatus" class="result-message" style="display:none;"></div>
+  </div>
+
+  <!-- Generate & Download Individual Bill -->
+  <div class="section">
+    <h3>Generate & Download 10-Day Bill (By Code ID)</h3>
+    <input type="text" id="codeIdInput" placeholder="Enter Customer Code ID" required />
+    <button onclick="generateBill()">Generate 10-Day Bill</button>
+    <div id="singleBillStatus" class="result-message" style="display:none;"></div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="bottom-bar">
+    <span>Milk Dairy Management System</span>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    flatpickr("#startDate", {
+      dateFormat: "Y-m-d",
+      defaultDate: new Date(),
+      animate: true
+    });
+
+    flatpickr("#endDate", {
+      dateFormat: "Y-m-d",
+      defaultDate: new Date(),
+      animate: true
+    });
+  </script>
+
+  <script src="admin.js"></script>
+</body>
+</html>

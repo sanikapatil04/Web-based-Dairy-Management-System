@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Customer Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #e0f7fa, #fce4ec);
+      position: relative;
+      overflow-x: hidden;
+      color: #333;
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+
+    body::before,
+    body::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      z-index: 0;
+      opacity: 0.3;
+    }
+
+    body::before {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle at center, #81d4fa, #ffffff00);
+      top: -100px;
+      left: -100px;
+    }
+
+    body::after {
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle at center, #f48fb1, #ffffff00);
+      bottom: -80px;
+      right: -80px;
+    }
+
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #4CAF50;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      font-weight: 600;
+      z-index: 999;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-size: 20px;
+    }
+
+    .user-role {
+      font-size: 16px;
+    }
+
+    .bottom-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border-top: 1px solid #ddd;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 0;
+      font-size: 14px;
+      z-index: 999;
+      box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+    }
+
+    .nav-item {
+      cursor: pointer;
+      color: #333;
+      text-align: center;
+      transition: color 0.3s;
+    }
+
+    .nav-item:hover {
+      color: #28a745;
+    }
+
+    .logout-container {
+      display: none;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 30px;
+      color: #2c3e50;
+      margin: 40px 0 30px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      padding: 30px 25px;
+      margin: 20px auto;
+      width: 90%;
+      max-width: 600px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 22px;
+      color: #34495e;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input[type="date"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      margin-bottom: 15px;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="date"]:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    button,
+    select#sessionSelect {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-right: 10px;
+      margin-top: 10px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    button:hover,
+    select#sessionSelect:hover {
+      background-color: #218838;
+      transform: scale(1.03);
+    }
+
+    select#sessionSelect {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20fill%3D%22white%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M7%2010l5%205%205-5H7z%22/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 16px;
+      padding-right: 36px;
+    }
+
+    select#sessionSelect:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(72, 180, 97, 0.4);
+    }
+
+    .result-box {
+      background-color: #f9f9f9;
+      padding: 18px;
+      border-left: 5px solid #007bff;
+      border-radius: 10px;
+      margin-top: 15px;
+      font-size: 15px;
+    }
+
+    @media (max-width: 600px) {
+      button, select#sessionSelect {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top App Bar -->
+  <div class="top-bar">
+    <div class="logo">🥛 Milk Diary</div>
+    <div class="user-role">👤 Customer</div>
+  </div>
+
+  <h2>Welcome, Customer</h2>
+
+  <!-- Daily Slip Section -->
+  <div class="card">
+    <h3>🗓️ Daily Milk Slip</h3>
+    <label for="entryDate">Select Date:</label>
+    <input type="date" id="entryDate" />
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const dateInput = document.getElementById('entryDate');
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        dateInput.value = `${yyyy}-${mm}-${dd}`;
+      });
+    </script>
+
+    <label for="sessionSelect">Select Session:</label>
+    <select id="sessionSelect">
+      <option value="MORNING">Morning</option>
+      <option value="EVENING">Evening</option>
+    </select>
+    <button onclick="getDailySlip()">Get Slip</button>
+    <div id="slipResult" class="result-box"></div>
+  </div>
+
+  <!-- 10-Day Bill Section -->
+  <div class="card">
+    <h3>📑 10-Day Bill</h3>
+    <label for="billDate">Select Date:</label>
+    <input type="date" id="billDate" />
+    <button onclick="getBill()">Preview Bill</button>
+    <button id="downloadMyBill">Download Bill as PDF</button>
+    <div id="billResult" class="result-box"></div>
+  </div>
+
+  <!-- Bill History Section -->
+  <div class="card">
+    <h3>📂 My Bill History</h3>
+    <button onclick="getBillHistory()">View Past Bills</button>
+    <div id="historyResult" class="result-box"></div>
+  </div>
+
+  <!-- Bottom Navigation Bar -->
+  <div class="bottom-bar">
+    <div class="nav-item" onclick="getDailySlip()">📄 Slip</div>
+    <div class="nav-item" onclick="getBill()">📑 Bill</div>
+    <div class="nav-item" onclick="getBillHistory()">🕘 History</div>
+    <div class="nav-item" onclick="logout()">🚪 Logout</div>
+  </div>
+
+  <script src="customer.js"></script>
+</body>
+</html>

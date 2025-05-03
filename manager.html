@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Milk Entry - Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #fff);
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-bar,
+    .bottom-bar {
+      background-color: #007bff;
+      color: white;
+      padding: 12px 20px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .top-bar {
+      top: 0;
+    }
+
+    .bottom-bar {
+      bottom: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 16px;
+    }
+
+    .bottom-bar button {
+      background: transparent;
+      border: 2px solid white;
+      padding: 6px 12px;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .bottom-bar button:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .form-container {
+      background: #ffffff;
+      padding: 35px 40px;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 550px;
+      margin: 100px auto 80px auto;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    h2 {
+      text-align: center;
+      color: #007bff;
+      font-size: 26px;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+      margin-bottom: 18px;
+      transition: border-color 0.3s ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 550px) {
+      .form-container {
+        padding: 25px;
+      }
+
+      .top-bar,
+      .bottom-bar {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    🐄🥛 Manager Panel - Milk Entry
+  </div>
+
+  <div class="form-container">
+    <h2>📋 Milk Entry Form</h2>
+    <form id="milkEntryForm">
+      <label>Customer Code ID:</label>
+      <input type="text" id="codeId" required />
+
+      <label>Customer Name:</label>
+      <input type="text" id="customerName" readonly />
+
+      <label>Milk Type:</label>
+      <input type="text" id="milkType" readonly />
+
+      <label>Date:</label>
+      <input type="date" id="date" required />
+      <script>
+        // Set default date to today in yyyy-MM-dd format
+        document.addEventListener('DOMContentLoaded', () => {
+          const dateInput = document.getElementById('date');
+          const today = new Date();
+          const yyyy = today.getFullYear();
+          const mm = String(today.getMonth() + 1).padStart(2, '0');
+          const dd = String(today.getDate()).padStart(2, '0');
+          dateInput.value = `${yyyy}-${mm}-${dd}`;
+        });
+      </script>
+
+      <label>Session:</label>
+      <select id="session" required>
+        <option value="">Select Session</option>
+        <option value="MORNING">Morning</option>
+        <option value="EVENING">Evening</option>
+      </select>
+
+      <label>Total Milk (Litres):</label>
+      <input type="number" id="totalMilk" step="0.01" required />
+
+      <label>Fat (%):</label>
+      <input type="number" id="fat" step="0.01" required />
+
+      <label>SNF (%):</label>
+      <input type="number" id="snf" step="0.01" required />
+
+      <label>Rate per Litre:</label>
+      <input type="number" id="rate" step="0.01" required />
+
+      <label>Total Amount:</label>
+      <input type="text" id="totalAmount" readonly />
+
+      <button type="submit">Submit Entry</button>
+    </form>
+  </div>
+
+  <div class="bottom-bar">
+    <div>© 2025 Milk Dairy</div>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    function logout() {
+      localStorage.clear();
+      window.location.href = "login.html";
+    }
+  </script>
+  <script src="manager.js"></script>
+</body>
+</html>

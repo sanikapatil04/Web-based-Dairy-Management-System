@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Milk Entry</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add Milk Entry</h2>
+        <form id="milkEntryForm">
+            <input type="date" id="date" required>
+            <input type="text" id="uniqueCode" placeholder="Unique Code" required>
+            <input type="text" id="customerName" placeholder="Customer Name" required>
+            <input type="number" id="totalMilk" placeholder="Total Milk (liters)" required>
+            <input type="number" id="fat" placeholder="Fat %" required>
+            <input type="number" id="snf" placeholder="SNF %" required>
+            <input type="number" id="ratePerLiter" placeholder="Rate per liter" required>
+            <input type="number" id="totalAmount" placeholder="Total Amount" required>
+            <button type="submit">Add Entry and Generate slip</button>
+        </form>
+        <button onclick="window.location.href='manager.html'">Back to Manager Dashboard</button>
+        <button onclick="submitMilkEntry()">Next</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

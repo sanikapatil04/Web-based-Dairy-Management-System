@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Register User</title>
+</head>
+<body>
+  <h2>Register New User</h2>
+  <form id="registerForm">
+    <input type="text" id="codeId" placeholder="Code ID (e.g., CUST001)" required><br>
+    <input type="text" id="name" placeholder="Name" required><br>
+    <input type="text" id="mobile" placeholder="Mobile Number" required><br>
+    
+    <select id="role" required>
+      <option value="">Select Role</option>
+      <option value="CUSTOMER">Customer</option>
+      <option value="DAIRY_MANAGER">Dairy Manager</option>
+    </select><br>
+
+    <select id="milkType" required>
+      <option value="">Select Milk Type</option>
+      <option value="COW">Cow</option>
+      <option value="BUFFALO">Buffalo</option>
+    </select><br>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <div id="registerResult" style="margin-top: 10px;"></div>
+
+  <script>
+    document.getElementById("registerForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const user = {
+        codeId: document.getElementById("codeId").value.trim(),
+        name: document.getElementById("name").value.trim(),
+        mobile: document.getElementById("mobile").value.trim(),
+        role: document.getElementById("role").value,
+        milkType: document.getElementById("milkType").value
+      };
+
+      const token = localStorage.getItem('token'); // 🔐 Get JWT
+
+      if (!token) {
+        alert("You must be logged in as admin.");
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:8080/admin/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + token
+          },
+          body: JSON.stringify(user)
+        });
+
+        const resultDiv = document.getElementById('registerResult');
+        const msg = await res.text();
+
+        if (res.ok) {
+          resultDiv.innerHTML = `✅ ${msg}`;
+          resultDiv.style.color = "green";
+
+          // Reset form and focus on first field
+          document.getElementById("registerForm").reset();
+          document.getElementById("codeId").focus();
+        } else {
+          resultDiv.innerHTML = `❌ ${msg}`;
+          resultDiv.style.color = "red";
+        }
+
+      } catch (err) {
+        alert("Registration failed due to network/server issue.");
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>

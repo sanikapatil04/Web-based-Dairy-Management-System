@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Customer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add New Customer</h2>
+        <form id="addCustomerForm">
+            <input type="text" id="customerName" placeholder="Customer Name" required>
+            <input type="text" id="uniqueCode" placeholder="Unique Code" required>
+            <input type="text" id="mobile" placeholder="Mobile Number" required>
+            <select id="milkType">
+                <option value="cow">Cow Milk</option>
+                <option value="buffalo">Buffalo Milk</option>
+            </select>
+            <button type="submit">Add Customer</button>
+        </form>
+        <button onclick="window.location.href='manager.html'">Back to Manager Dashboard</button>
+        <button onclick="submitCustomer()">Next</button>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
